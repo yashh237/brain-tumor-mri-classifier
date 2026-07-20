@@ -10,10 +10,17 @@ import matplotlib.pyplot as plt
 # ---------------------------
 # Configuration
 # ---------------------------
+import os
+import urllib.request
+
 CLASS_NAMES = ['glioma', 'meningioma', 'notumor', 'pituitary']
 MODEL_PATH = "brain_tumor_resnet50.pth"
+MODEL_URL = "https://huggingface.co/yashh237/brain-tumor-resnet50/resolve/main/brain_tumor_resnet50.pth"
 device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
+if not os.path.exists(MODEL_PATH):
+    with st.spinner("Downloading model (first run only)..."):
+        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
 # ---------------------------
 # Grad-CAM class (same as before)
 # ---------------------------
